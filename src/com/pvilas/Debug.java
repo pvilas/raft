@@ -4,6 +4,11 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.io.*;
 
+
+/*
+* We make the initial supposition that the printstream is thread safe
+ */
+
 public class Debug {
     private String name;
     private int level;
