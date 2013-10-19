@@ -2,6 +2,7 @@ package com.pvilas;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.TimerTask;
 import java.util.Vector;
 
 /**
@@ -11,10 +12,12 @@ import java.util.Vector;
  * Time: 17:26
  * To change this template use File | Settings | File Templates.
  */
-public class RaftServerPool {
+public class RaftServerPool extends TimerTask {
     private int numberOfServers;
+    public  static final int TIME_REPORT_POOL_STATUS = 5000; // milliseconds to report poolstatus
     private Vector ServerPool;
     private static Debug logger = new com.pvilas.Debug("RAFTSERVERPOOL", Debug.DEBUG, System.out);
+
 
     public RaftServerPool(int numberOfServers, int firstPort) {
         this.numberOfServers=numberOfServers;
@@ -33,9 +36,14 @@ public class RaftServerPool {
                 e.printStackTrace();
             }
         }
-
         logger.debug("Servers created");
     }
+
+    // this method is executed every  TIME_REPORT_POOL_STATUS ms
+    public void run() {
+        this.status();
+    }
+
 
     //start pool
     public void start() {
@@ -50,11 +58,14 @@ public class RaftServerPool {
 
     // prints the status of each server
     public void status() {
+        logger.debug("Reporting pool status");
+        logger.debug("=============================");
         Enumeration vEnum = this.ServerPool.elements();
         while(vEnum.hasMoreElements()) {
             RaftServer rs=(RaftServer)vEnum.nextElement();
             logger.debug("Server number "+rs.getNumber()+" is "+rs.getStatus());
         }
+        logger.debug("=============================");
     }
 
 

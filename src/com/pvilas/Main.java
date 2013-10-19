@@ -43,10 +43,17 @@ public class Main {
             quit("The number of servers must be odd");
         }
 
+        // timer of the serverpool
+        Timer timer=new Timer();
+
+        // create the serverpool
         com.pvilas.RaftServerPool sp = new RaftServerPool(
                 numberOfServers,
                 FIRST_PORT
         );
+
+        // do maintenance processes every TIME_REPORT_POOL_STATUS ms
+        timer.schedule(sp, RaftServerPool.TIME_REPORT_POOL_STATUS, RaftServerPool.TIME_REPORT_POOL_STATUS);
 
         // start the pool and print status
         sp.start();
