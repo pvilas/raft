@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e087ac1-a574-43e6-af40-251c31380b3c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/Main.java" afterPath="$PROJECT_DIR$/src/com/pvilas/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" afterPath="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="raft.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382258502406" ignored="false" />
+    <file path="/Dummy.txt" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382264727937" ignored="false" />
     <file path="/Main.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382202796234" ignored="false" />
     <file path="/Debug.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382183426531" ignored="false" />
     <file path="/Client.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382184507734" ignored="false" />
@@ -149,7 +147,7 @@
       <file leaf-file-name="RaftServer.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="131" column="29" selection-start="4167" selection-end="4167" vertical-scroll-proportion="0.899568">
+            <state line="99" column="76" selection-start="3310" selection-end="3310" vertical-scroll-proportion="0.31277058">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -201,8 +199,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="717" />
-    <option name="y" value="167" />
+    <option name="x" value="375" />
+    <option name="y" value="15" />
     <option name="width" value="1245" />
     <option name="height" value="1124" />
   </component>
@@ -409,11 +407,15 @@
       <created>1382209875098</created>
       <updated>1382209875098</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="seguim amb elecció del lider">
+      <created>1382264739578</created>
+      <updated>1382264739578</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="717" y="167" width="1245" height="1124" extended-state="0" />
+    <frame x="375" y="15" width="1245" height="1124" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -427,6 +429,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32623318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -436,7 +439,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32623318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44459102" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -484,7 +486,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="tema de les votacions" />
+    <option name="LAST_COMMIT_MESSAGE" value="seguim amb elecció del lider" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -500,6 +502,7 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="El pool de servidors ja va" />
     <MESSAGE value="tema de les votacions" />
+    <MESSAGE value="seguim amb elecció del lider" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -616,7 +619,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="29" selection-start="4167" selection-end="4167" vertical-scroll-proportion="0.899568">
+        <state line="99" column="76" selection-start="3310" selection-end="3310" vertical-scroll-proportion="0.31277058">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
