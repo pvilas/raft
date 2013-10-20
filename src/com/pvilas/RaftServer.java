@@ -1,5 +1,7 @@
 package com.pvilas;
 
+import com.eclipsesource.json.JsonObject;
+
 import java.io.IOException;
 
 /**
@@ -19,14 +21,17 @@ public class RaftServer extends CServer {
     public static final int STATE_CANDIDATE = 2;
     private int state;
 
+    // helper class to make json responses
+    public static JSonHelper response = new JSonHelper();
+
     // server's state machine
     private static StateMachine sm = new StateMachine();
 
-    // latest term server has seen -- MUST BE STORED
+    // latest term server has seen -- TODO: MUST BE STORED
     private long currentTerm = 0;
-    // candidate that received vote in current term -1 if none -- MUST BE STORED
+    // candidate that received vote in current term -1 if none -- TODO: MUST BE STORED
     private int votedFor = -1;
-    // server's log --- MUST BE STORED
+    // server's log --- TODO: MUST BE STORED
     private Log log;
 
 
@@ -39,7 +44,7 @@ public class RaftServer extends CServer {
 
     protected void process() {
 
-        // if I'm a follower, I accept a log operation
+        // if I'm a follower, I accept a log replication
 
         // if I'm the leader, I accept a log operation
         // and I will try to replicate it
@@ -47,7 +52,7 @@ public class RaftServer extends CServer {
         // the this entry is commited, I can pass it to the state machine and
         // reply the client
 
-        // I'm being requested to vote
+        // I'm being requesting votes
 
         /*
         try {
@@ -65,10 +70,10 @@ public class RaftServer extends CServer {
 
 
     // impl of requestVote
-    public boolean requestVote(int candidateId, // candidate requesting vote
-                               long termC, // candidate's term
-                               int lastLogIndex, // index of candidate's last log entry
-                               long lastLogTerm // term of cadidates's last log entry
+    public boolean requestVote( long termC, // candidate's term
+                                int  candidateId, // candidate requesting vote
+                                int  lastLogIndex, // index of candidate's last log entry
+                                long lastLogTerm // term of cadidates's last log entry
     ) {
         // rename parameters to match slide 14
         long lastTermV=this.log.lastLogTerm();
@@ -76,36 +81,35 @@ public class RaftServer extends CServer {
         long lastTermC=lastLogTerm;
         int  lastIndexC=lastLogIndex;
 
+        logger.debug("Being requested to vote");
+
         // check "step down" condition
-        if(termC>this.currentTerm) {
-            if (this.state == this.STATE_LEADER || this.state == this.STATE_CANDIDATE) {
-                this.setState(this.STATE_FOLLOWER);
-                this.votedFor=candidateId;
-                this.currentTerm=termC;
-                return false;
-            }
-        } else if (termC==this.currentTerm) {
-                this.votedFor=candidateId;
+        // this comes from slide 7 of the presentation
+        // this can be also on the logic of the request vote response
+        if (this.stepDown(termC)) {
+            return false; // vote  NO
+        } else if (termC==this.currentTerm && (this.votedFor == -1 || this.votedFor == candidateId) ) {
 
-        }  else {  //termC<this.currentTerm
-            return false;
-        }
-
-        // check if we need a step down
-        if (lastTermV<lastTermC) {
-            if (this.state == this.STATE_LEADER || this.state == this.STATE_CANDIDATE) {
-                    this.setState(this.STATE_FOLLOWER);
-                    this.votedFor=candidateId;
-                    this.currentTerm=termC;
-                    return true; // vote for candidate
-            }
-        } else if ( (lastTermV>lastTermC) ||
-                    (lastTermV==lastTermC && lastIndexV>lastIndexC)
-                ) {
+                // check for log completeness
+                if ( (lastTermV>lastTermC) ||
+                     (lastTermV==lastTermC && lastIndexV>lastIndexC)
+                    ) {
+                    this.votedFor=-1;
                     return false;
+                } else { // his log is almost complete as mine!
+                    this.votedFor=candidateId;
+                    this.resetElectionTimeout();
+                    return true;
+                }
+
+        }  else if (termC<this.currentTerm) {
+            // this comes form page 4 of the paper
+                this.votedFor=-1;
+                logger.debug("Voted no for server candidate "+candidateId);
+                return false;
         }
 
-
+        return false;
     }
 
     // triggered every ms
@@ -113,10 +117,28 @@ public class RaftServer extends CServer {
 
     }
 
+    // resets the election timeout
+    private void resetElectionTimeout() {
+
+    }
+
+    // performs an step down
+    private boolean stepDown(long newTerm) {
+        if(newTerm>this.currentTerm) {
+            if (this.state == this.STATE_LEADER || this.state == this.STATE_CANDIDATE) {
+                this.setState(this.STATE_FOLLOWER);
+            }
+            this.currentTerm=newTerm;
+            this.votedFor=-1;
+        }
+        return false;
+    }
 
     // sets server state
-    public void setState(int st) {
+    private void setState(int st) {
+        // TODO: save on disk before set variable for the case of a crash
         this.state=st;
+        this.votedFor=-1;
     }
 
     // return server id
@@ -137,6 +159,28 @@ public class RaftServer extends CServer {
                 return "ERROR";
         }
     }
+
+
+}
+
+
+/*
+* class to help making json constructions
+ */
+class JSonHelper {
+
+    public JSonHelper() {
+
+    }
+
+    // return a vote to a candidate
+    public JsonObject resultVote(int term, int voteGranted) {
+        return new JsonObject()
+                .add("term", term)
+                .add("voteGranted", voteGranted);
+    }
+
+
 
 
 }

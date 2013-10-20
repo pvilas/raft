@@ -39,10 +39,6 @@ public class Main {
             logger.debug("Using default number of servers");
         }
 
-        if ( (numberOfServers & 1) == 0 ) {
-            quit("The number of servers must be odd");
-        }
-
         // timer of the serverpool
         Timer timer=new Timer();
 
