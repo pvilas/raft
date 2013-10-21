@@ -3,6 +3,8 @@ package com.pvilas;
 import com.eclipsesource.json.JsonObject;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,7 +16,7 @@ import java.io.IOException;
 
 public class RaftServer extends CServer {
     /*
-    * Eventually we can implement this class behind a webserver
+    * Eventually we can implement this class behind a web server
      */
     public static final int STATE_LEADER = 0;
     public static final int STATE_FOLLOWER = 1;
@@ -22,7 +24,11 @@ public class RaftServer extends CServer {
     public static final String RPC_VOTE = "RequestVote";
     public static final String RPC_APPEND = "AppendEntries";
     public static final String CLIENT_REQUEST = "ClientRequest";
+    private int electionTimeout = 5000; // initialize to 5 seconds without a heartbeat => new election
+    private int heartBeatPeriod = 250; // time between leader's heartbeats
     private int state;
+
+    private Timer timer=new Timer(); // used to election timeout
 
     // helper class to make json responses
     public static JSonHelper response = new JSonHelper();
@@ -37,11 +43,34 @@ public class RaftServer extends CServer {
     // server's log --- TODO: MUST BE STORED
     private Log log;
 
+    // scheduled task to trigger elections
+    private TimerTask electionTimeoutTask = new TimerTask()
+    {
+        public void run()
+        {
+            runElections();
+        }
+    };
+
+    // scheduled task to send heartbeats to followers
+    private TimerTask hbTimeoutTask = new TimerTask()
+    {
+        public void run()
+        {
+            sendHeartBeat();
+        }
+    };
+
+
+
 
     public RaftServer(int number, int port) throws IOException {
         super(number, port); // low-level comm machinery
         this.state = STATE_FOLLOWER; // server starts as a follower
         this.log = new Log(number);
+        // schedule election timeout
+        this.timer.schedule(electionTimeoutTask, this.electionTimeout, this.electionTimeout);
+        this.timer.schedule(hbTimeoutTask, this.heartBeatPeriod, this.heartBeatPeriod);
     }
 
 
@@ -82,7 +111,6 @@ public class RaftServer extends CServer {
      */
     protected void process() {
 
-
         // read message from stream and parse as json object
         JsonObject message = JsonObject.readFrom( this.read() );
 
@@ -90,45 +118,89 @@ public class RaftServer extends CServer {
         String rpcCommand = message.get("rpc-command").toString();
 
         // I'm a follower, I accept a log replication op
-        if ( state==STATE_FOLLOWER && rpcCommand == RPC_APPEND) {
+        if ( state==STATE_FOLLOWER && rpcCommand.equals(RPC_APPEND)) {
+
+            //determine if it is a heartbeat from leader (void payload)
+            if ("".equals(message.get("payload").toString())) {
+                this.write(
+                        handleHeartbeat(message).toString()
+                );
+            } else { // it is a regular append entries
+                this.write(
+                        response.resultAppend(
+                                this.currentTerm,
+                                this.AppendEntries(
+                                        message.get("term").asInt(),
+                                        message.get("leaderId").asInt(),
+                                        message.get("prevLogIndex").asInt(),
+                                        message.get("prevLogTerm").asInt(),
+                                        message.get("payload").asObject(),
+                                        message.get("leaderCommit").asInt()
+                                        )? 1 : 0
+                        ).toString() );
+            }
 
         }
 
-        // I'm a follower, I accept a client request
+
+        // I'm a follower or a candidate and I receive request for vote
+        if ( (state ==STATE_FOLLOWER || state==STATE_CANDIDATE) && rpcCommand.equals(RPC_VOTE) ) {
+            this.write(
+                    response.resultVote(
+                            this.currentTerm,
+                            this.requestVote(
+                                    message.get("term").asInt(),
+                                    message.get("candidateId").asInt(),
+                                    message.get("prevLogIndex").asInt(),
+                                    message.get("prevLogTerm").asInt()
+                            )? 1 : 0
+                    ).toString() );
+        }
+
+        // I'm a follower, I accept a client request and I redirect to the leader
         // TODO: redirect to leader
-        if ( state==STATE_FOLLOWER && rpcCommand == CLIENT_REQUEST) {
+        if ( state==STATE_FOLLOWER && rpcCommand.equals(CLIENT_REQUEST)) {
 
         }
 
-        // I'm the leader, I accept a log operation
-        if ( state==STATE_FOLLOWER && rpcCommand == CLIENT_REQUEST) {
-
+        // I'm the leader, I accept client operation
+        if ( state==STATE_LEADER && rpcCommand.equals(CLIENT_REQUEST)) {
+            // append to my log
+            // and I will try to replicate it
+            // if I will have replicated on the majority of the servers
+            // the this entry is commited, I can pass it to the state machine and
+            // reply the client
         }
-
-        // and I will try to replicate it
-        // if I will have replicated on the majority of the servers
-        // the this entry is commited, I can pass it to the state machine and
-        // reply the client
-
-        // I'm being requesting votes
-
-        /*
-        try {
-            String from_client=this.read();
-            this.logger.debug("Read form client: "+from_client);
-            String response="You said "+from_client;
-            this.write(response);
-        }catch(Exception e)
-        {
-            logger.error("process"+e.toString());
-        }
-         */
 
     }
 
 
+    // request votes from the other servers of the pool
+    protected void requestForVotes() {
+
+    }
+
+
+    // handles a leader's heartbeat
+    private JsonObject handleHeartbeat(JsonObject message) {
+
+        // reset election timeout
+        this.timer.schedule(electionTimeoutTask, this.electionTimeout, this.electionTimeout);
+        logger.debug("Election timeout updated!");
+
+        // check the leaders term
+        int lTerm = message.get("term").asInt();
+
+        // update server's term
+        if (currentTerm<lTerm)
+            currentTerm=lTerm;
+
+        return response.resultAppend( this.currentTerm, 1 );
+    }
+
+
     // impl of AppendEntries
-    // invoked by leader to replicte log entries 5.3
+    // invoked by leader to replicate log entries 5.3
     // also used as heartbeat 5.2
     // @returns true if the entry has appended
     protected boolean AppendEntries(
@@ -206,9 +278,17 @@ public class RaftServer extends CServer {
     }
 
     // triggered every ms
-    public void run() {
-
+    public void runElections() {
+        logger.debug("Elections time!-----");
     }
+
+    // triggered every ms
+    public void sendHeartBeat() {
+        logger.debug("Sending heart beats");
+    }
+
+
+
 
     // resets the election timeout
     private void resetElectionTimeout() {
