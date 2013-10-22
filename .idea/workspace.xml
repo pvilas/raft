@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="129" />
-    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="320" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="445" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="157" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e087ac1-a574-43e6-af40-251c31380b3c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/pvilas/CollectVotes.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/pvilas/HeartBeatParallelSender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/pvilas/ParallelRequesterManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/pvilas/VotesCollector.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/CServer.java" afterPath="$PROJECT_DIR$/src/com/pvilas/CServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/Main.java" afterPath="$PROJECT_DIR$/src/com/pvilas/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java" afterPath="$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" afterPath="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java" afterPath="$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="raft.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382424130294" ignored="false" />
+    <file path="/Dummy.txt" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382440827156" ignored="false" />
     <file path="/Main.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382202796234" ignored="false" />
     <file path="/Debug.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382183426531" ignored="false" />
     <file path="/Client.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382184507734" ignored="false" />
@@ -26,11 +27,15 @@
     <file path="/ProvesJSon.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382192293953" ignored="false" />
     <file path="/Recipe.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382194846031" ignored="false" />
     <file path="/StateMachine.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382193699328" ignored="false" />
-    <file path="/RaftServer.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382430621513" ignored="false" />
+    <file path="/RaftServer.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382473773343" ignored="false" />
     <file path="/RaftServerPool.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382429937810" ignored="false" />
     <file path="/Log.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382379985437" ignored="false" />
     <file path="/a.dummy" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382379935921" ignored="false" />
     <file path="/a.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382427651044" ignored="false" />
+    <file path="/CollectVotes.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382451813390" ignored="false" />
+    <file path="/ParallelRequesterManager.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382472053109" ignored="false" />
+    <file path="/VotesCollector.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382474467687" ignored="false" />
+    <file path="/HeartBeatParallelSender.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382462485140" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +50,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
@@ -62,8 +66,8 @@
         <option name="CONDITION_ENABLED" value="true" />
         <option name="CLASS_FILTERS_ENABLED" value="false" />
         <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
+        <option name="CONDITION" value="&#13;&#13;JAVA" />
+        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -79,10 +83,11 @@
         <option name="CONDITION_ENABLED" value="true" />
         <option name="CLASS_FILTERS_ENABLED" value="false" />
         <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
+        <option name="CONDITION" value="&#13;&#13;JAVA" />
+        <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
     </breakpoint_any>
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -92,25 +97,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RaftServer.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="RaftServer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="508" column="12" selection-start="16781" selection-end="16781" vertical-scroll-proportion="0.45815602">
+            <state line="263" column="46" selection-start="9530" selection-end="9533" vertical-scroll-proportion="-4.48">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1759#1860#0" expanded="true" />
-                <element signature="e#1853#1854#0" expanded="true" />
-                <element signature="e#1955#2057#0" expanded="true" />
-                <element signature="e#2050#2051#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Log.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/Log.java">
+      <file leaf-file-name="VotesCollector.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/pvilas/VotesCollector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="63" selection-start="414" selection-end="414" vertical-scroll-proportion="0.0">
+            <state line="59" column="50" selection-start="1868" selection-end="1868" vertical-scroll-proportion="0.7513812">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CServer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/pvilas/CServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="38" selection-start="1730" selection-end="1730" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -134,7 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/pvilas/Debug.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Client.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Server.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/StateMachine.java" />
@@ -143,17 +154,21 @@
         <option value="$PROJECT_DIR$/src/com/pvilas/ProvaServer.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Log.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java" />
-        <option value="$PROJECT_DIR$/src/com/pvilas/CServer.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/CollectVotes.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/HeartBeatParallelSender.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/ParallelRequesterManager.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/CServer.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/VotesCollector.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="140" />
-    <option name="y" value="4" />
-    <option name="width" value="1046" />
+    <option name="x" value="286" />
+    <option name="y" value="-8" />
+    <option name="width" value="1269" />
     <option name="height" value="1124" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -204,53 +219,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="raft">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="raft">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src/com">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="pvilas">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="raft">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src/com">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -289,11 +257,67 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="raft">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="raft">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="com">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="pvilas">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="raft">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="src">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="com">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
@@ -303,12 +327,12 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.41416568" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.41416568" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
@@ -385,38 +409,43 @@
       <created>1382380045781</created>
       <updated>1382380045781</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="mes eleccio de lider">
+      <created>1382440832687</created>
+      <updated>1382440832687</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="140" y="4" width="1046" height="1124" extended-state="0" />
+    <frame x="286" y="-8" width="1269" height="1124" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32440782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24876441" sideWeight="0.7662204" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2541872" sideWeight="0.7662204" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39973614" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23377961" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27497426" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299075" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34809476" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44459102" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20082389" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19917695" sideWeight="0.65293515" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32955715" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30781892" sideWeight="0.39958805" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.60041195" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44459102" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -482,49 +511,17 @@
     <MESSAGE value="mes eleccio de lider" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/StateMachine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="57" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/CServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="1" selection-start="2208" selection-end="2208" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Debug.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="64" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Debug.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="273" selection-end="392" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="57" selection-start="394" selection-end="442" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/Recipe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="69" selection-start="554" selection-end="554" vertical-scroll-proportion="0.3508246" />
@@ -544,9 +541,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvaClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="53" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.7339833">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/CollectVotes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="25" selection-start="169" selection-end="169" vertical-scroll-proportion="0.14718615">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="121" selection-start="804" selection-end="913" vertical-scroll-proportion="0.6392758">
+        <state line="12" column="12" selection-start="202" selection-end="212" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="13" selection-start="142" selection-end="142" vertical-scroll-proportion="0.07464325">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Log.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="36" selection-start="456" selection-end="572" vertical-scroll-proportion="0.4047619">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/HeartBeatParallelSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="61" selection-start="317" selection-end="317" vertical-scroll-proportion="0.22077923">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -555,48 +591,85 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="68" selection-start="1099" selection-end="1099" vertical-scroll-proportion="0.5821727">
+        <state line="78" column="12" selection-start="2304" selection-end="2487" vertical-scroll-proportion="0.82081544">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvaClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="53" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.7339833">
-          <folding />
+    <entry file="uml://JAVA/com.pvilas">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>com.pvilas</OriginalElement>
+          <nodes>
+            <node x="" y="">com.pvilas.Debug</node>
+            <node x="" y="">com.pvilas.ProvesJSon</node>
+            <node x="" y="">com.pvilas.StateMachine</node>
+            <node x="" y="">com.pvilas.JSonHelper</node>
+            <node x="" y="">com.pvilas.Requester</node>
+            <node x="" y="">com.pvilas.VotesCollector</node>
+            <node x="" y="">com.pvilas.RaftServer</node>
+            <node x="" y="">com.pvilas.CollectVotes</node>
+            <node x="" y="">com.pvilas.HeartBeatParallelSender</node>
+            <node x="" y="">com.pvilas.Recipe</node>
+            <node x="" y="">com.pvilas.Main</node>
+            <node x="" y="">com.pvilas.ProvaClient</node>
+            <node x="" y="">com.pvilas.RaftServerPool</node>
+            <node x="" y="">com.pvilas.CServer</node>
+            <node x="" y="">com.pvilas.LogEntry</node>
+            <node x="" y="">com.pvilas.Client</node>
+            <node x="" y="">com.pvilas.Log</node>
+            <node x="" y="">com.pvilas.ProvaServer</node>
+            <node x="" y="">com.pvilas.VoteRequester</node>
+            <node x="" y="">com.pvilas.ParallelRequesterManager</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="250.5" y="227.5" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/ParallelRequesterManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="64" selection-start="828" selection-end="828" vertical-scroll-proportion="0.33147633">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Log.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="63" selection-start="414" selection-end="414" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="43" column="0" selection-start="1405" selection-end="1405" vertical-scroll-proportion="0.30971992">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/CServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="89" selection-start="569" selection-end="569" vertical-scroll-proportion="0.44986072">
+        <state line="53" column="38" selection-start="1730" selection-end="1730" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/eclipsesource/json/JsonObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="132" column="0" selection-start="4767" selection-end="4767" vertical-scroll-proportion="0.6989619">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="508" column="12" selection-start="16781" selection-end="16781" vertical-scroll-proportion="0.45815602">
+        <state line="263" column="46" selection-start="9530" selection-end="9533" vertical-scroll-proportion="-4.48">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1759#1860#0" expanded="true" />
-            <element signature="e#1853#1854#0" expanded="true" />
-            <element signature="e#1955#2057#0" expanded="true" />
-            <element signature="e#2050#2051#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/VotesCollector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="50" selection-start="1868" selection-end="1868" vertical-scroll-proportion="0.7513812">
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

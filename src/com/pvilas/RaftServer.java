@@ -3,17 +3,14 @@ package com.pvilas;
 import com.eclipsesource.json.JsonObject;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Enumeration;
 import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created with IntelliJ IDEA.
- * User: sistemas
- * Date: 19/10/13
- * Time: 16:44
- * To change this template use File | Settings | File Templates.
+ * implements a Raft server
  */
 
 public class RaftServer extends CServer {
@@ -23,14 +20,17 @@ public class RaftServer extends CServer {
     public static final int STATE_LEADER = 0;
     public static final int STATE_FOLLOWER = 1;
     public static final int STATE_CANDIDATE = 2;
+    public static final int SEND_TIMEOUT = 2000; // waiting time to connect with other server
     public static final String RPC_VOTE = "RequestVote";
     public static final String RPC_APPEND = "AppendEntries";
     public static final String CLIENT_REQUEST = "ClientRequest";
-    private int electionTimeout = 5000; // initialize to 5 seconds without a heartbeat => new election
+    private int electionTimeout = 2000; // initialize to 5 seconds without a heartbeat => new election
     private int heartBeatPeriod = 250; // time between leader's heartbeats
     private int state; // current state of this server
     private RaftServerPool pool; // pool that this server belongs
     public int serverId; // id of this server
+    private VotesCollector vc;
+
 
     private Timer timer = new Timer(); // used to election timeout
 
@@ -41,11 +41,11 @@ public class RaftServer extends CServer {
     private static StateMachine sm = new StateMachine();
 
     // latest term server has seen -- TODO: MUST BE STORED
-    private int currentTerm = 0;
+    public int currentTerm = 0;
     // candidate that received vote in current term -1 if none -- TODO: MUST BE STORED
     private int votedFor = -1;
     // server's log --- TODO: MUST BE STORED
-    private Log log;
+    public Log log;
 
     // scheduled task to trigger elections
     private TimerTask electionTimeoutTask = new TimerTask() {
@@ -117,8 +117,12 @@ public class RaftServer extends CServer {
         // read message from stream and parse as json object
         JsonObject message = JsonObject.readFrom(this.read());
 
+        if (message==null || message.get("rpc-command").isNull())
+            return;
+
         // extract rpc command
-        String rpcCommand = message.get("rpc-command").toString();
+        String rpcCommand = message.get("rpc-command").asString();
+
 
         // I'm a follower or a candidate, I accept a log replication op
         if ((state == STATE_FOLLOWER || state == STATE_CANDIDATE) && rpcCommand.equals(RPC_APPEND)) {
@@ -150,7 +154,7 @@ public class RaftServer extends CServer {
         }
 
 
-        // I'm a follower or a candidate and I receive request for vote
+        // I'm a follower or a candidate and I receive a request for vote
         if ((state == STATE_FOLLOWER || state == STATE_CANDIDATE) && rpcCommand.equals(RPC_VOTE)) {
             this.write(
                     response.resultVote(
@@ -158,8 +162,8 @@ public class RaftServer extends CServer {
                             this.requestVote(
                                     message.get("term").asInt(),
                                     message.get("candidateId").asInt(),
-                                    message.get("prevLogIndex").asInt(),
-                                    message.get("prevLogTerm").asInt()
+                                    message.get("lastLogIndex").asInt(),
+                                    message.get("lastLogTerm").asInt()
                             ) ? 1 : 0
                     ).toString());
         }
@@ -182,17 +186,19 @@ public class RaftServer extends CServer {
     }
 
 
-    // request votes from the other servers of the pool
-    protected void requestForVotes() {
-
-    }
-
-
     // handles a leader's heartbeat
     private JsonObject handleHeartbeat(JsonObject message) {
-
         // reset election timeout
-        resetElectionTimeout();
+        resetElectionTimeout(this.electionTimeout);
+
+        // if we are on elections
+        if (vc != null) {
+            vc.interruptSenders();
+            // stop the thread
+            vc.interrupt();
+            // destroy object
+            vc=null;
+        }
 
         // check the leaders term
         int lTerm = message.get("term").asInt();
@@ -269,7 +275,7 @@ public class RaftServer extends CServer {
                 return false;
             } else { // his log is almost complete as mine!
                 this.votedFor = candidateId;
-                this.resetElectionTimeout();
+                this.resetElectionTimeout(this.electionTimeout);
                 return true;
             }
 
@@ -286,7 +292,7 @@ public class RaftServer extends CServer {
 
     // if the task election timeouts it triggers this method
     public void runElections() {
-        logger.debug("Elections time!-----");
+        //logger.debug("Elections time!-----");
         try {
             // first of all we change the state to candidate
             setState(STATE_CANDIDATE);
@@ -295,78 +301,12 @@ public class RaftServer extends CServer {
             incrementCurrentTerm();
 
             // reset election timeout
-            resetElectionTimeout();
+            resetElectionTimeout(this.electionTimeout);
 
-            // calculate how many votes are the majority
-            // = half the servers or half+1 if odd
-            // we presume for the moment that all servers are alive
-            int majority = pool.getMajorityNumber();
-
-            // get list of servers
-            // TODO: check if server is alive, new ones, etc.
-            Enumeration serverList = pool.getServers();
-
-            // vote for myself
-            int votes = 1;
-
-            // make request vote message
-            JsonObject msg = response.makeRequestVote(
-                    this.currentTerm,
-                    this.serverId,
-                    this.log.lastLogIndex(),
-                    this.log.lastLogTerm()
-            );
-
-            // request votes
-            // TODO: what about to do this "in parallel"?
-            // -> could be done by starting a thread with multiple non bloking threads to collect the votes
-            // the we join the main thread until termination, timeout, majority, ...
-            // by entering in a loop checking conditions b and c or until win the election or timeout
-
-            // for the moment, we collect votes secuentaly
-            // NOTE THAT the state can be changed in any moment if we received an
-            // hb from a one that claims to be leader because his term is almost equal to our
-
-            while (serverList.hasMoreElements() && state == STATE_CANDIDATE) {
-                RaftServer rs = (RaftServer) serverList.nextElement();
-                if (rs.serverId != this.serverId) {
-                    JsonObject rp = response.sendClient(
-                            "localhost", // TODO: fix this
-                            rs.port,
-                            msg
-                    );
-
-                    // count votes
-                    if (!rp.get("error").isNull()) {
-                        logger.warning("RequestVote to server " + rs.serverId + " terminated with the error: " + rp.get("error"));
-                    } else {
-                        int rTerm = rp.get("term").asInt();
-                        int voted = rp.get("voteGranted").asInt();
-
-                        // we have a vote!
-                        if (voted == 1) votes++;
-
-                        // if we reached majority
-                        if (votes == majority) {
-                            logger.debug("Win!! I'm the new leader!!");
-                            setState(STATE_LEADER);
-                            // send hb,s immediately to claim to be the new leader
-                            sendHeartBeat();
-                            return; // we don't need more votes
-                        }
-
-                    }
-
-                }
-            }
-
-
-            // be in this state until
-
-
-            // a) win the election
-            // b) another establishes itself as a leader
-            // c) period of time goes with no winner
+            // gather votes
+            // setup the votes collector
+            vc = new VotesCollector(this, pool.getServers(), pool.getMajorityNumber());
+            vc.start();
 
         } finally {
             // if something goes wrong, set server as follower
@@ -378,46 +318,35 @@ public class RaftServer extends CServer {
     // triggered every ms
     // send heartbeats to every server if I'm the leader
     public void sendHeartBeat() {
-
         if (state == STATE_LEADER) {
-            // make an hb message (and entry with null payload)
-            JsonObject entry =
-                    response.makeHB(
-                            this.currentTerm,
-                            this.serverId);
-            Enumeration serverList = pool.getServers();
-            // for each server on the list that is not myself
-
-            // TODO: what to do this "in parallel"?
-
-            while (serverList.hasMoreElements()) {
-                RaftServer rs = (RaftServer) serverList.nextElement();
-                if (rs.serverId != this.serverId) {
-                    JsonObject rp = response.sendClient(
-                            "localhost", // TODO: fix this
-                            rs.port,
-                            entry
-                    );
-                }
-            }
-
+            logger.debug("Sending heartbeats to pool");
+            HeartBeatParallelSender hbs= new HeartBeatParallelSender(this, pool.getServers());
+            hbs.start();
         }
     }
 
 
     // resets the election timeout
-    private void resetElectionTimeout() {
-        this.timer.schedule(electionTimeoutTask, this.electionTimeout, this.electionTimeout);
-        logger.debug("Election timeout updated!");
+    public void resetElectionTimeout(int tout) {
+        // this is the most ugly thing that I have done but I have no enough time.... argg
+        try {
+            sleep(tout);  // simulates an election reschedule
+        }  catch(Exception s) {
+            ;
+        }
+        //logger.debug("Election timeout updated!");
     }
+
+
+
 
     // performs an step down if necessary
     private boolean stepDown(int newTerm) {
         if (newTerm > this.currentTerm) {
             this.currentTerm = newTerm;
             this.votedFor = -1;
-            if (this.state == this.STATE_LEADER || this.state == this.STATE_CANDIDATE) {
-                this.setState(this.STATE_FOLLOWER);
+            if (this.state == STATE_LEADER || this.state == STATE_CANDIDATE) {
+                this.setState(STATE_FOLLOWER);
             }
             return true;
         }
@@ -425,7 +354,7 @@ public class RaftServer extends CServer {
     }
 
     // sets server state
-    private void setState(int st) {
+    public void setState(int st) {
         // TODO: save on disk before set variable for the case of a crash
         synchronized (this) {
             this.state = st;
@@ -473,6 +402,7 @@ class JSonHelper {
     }
 
     // returns a vote to a candidate
+    // only read on sendClient, it will not pass to main process
     public JsonObject resultVote(int term, int voteGranted) {
         return new JsonObject()
                 .add("term", term)
@@ -480,6 +410,7 @@ class JSonHelper {
     }
 
     // returns a response to an append op
+    // only read on sendClient, it will not pass to main process
     public JsonObject resultAppend(int term, int success) {
         return new JsonObject()
                 .add("term", term)
@@ -494,6 +425,7 @@ class JSonHelper {
                                 JsonObject payload,
                                 int leaderCommit) {
         return new JsonObject()
+                .add("rpc-command", RaftServer.RPC_APPEND)
                 .add("term", term)
                 .add("leaderId", leaderId)
                 .add("prevLogIndex", prevLogIndex)
@@ -511,6 +443,7 @@ class JSonHelper {
                                       int lastLogTerm   // term of candidate's last log entry 5.4
     ) {
         return new JsonObject()
+                .add("rpc-command", RaftServer.RPC_VOTE)
                 .add("term", term)
                 .add("candidateId", candidateId)
                 .add("lastLogIndex", lastLogIndex)
@@ -522,6 +455,7 @@ class JSonHelper {
     public JsonObject makeHB(int term,
                              int leaderId) {
         return new JsonObject()
+                .add("rpc-command", RaftServer.RPC_APPEND)
                 .add("term", term)
                 .add("leaderId", leaderId)
                 .add("prevLogIndex", 0)
@@ -538,15 +472,16 @@ class JSonHelper {
                                  JsonObject msg
     ) {
         try {
-            Socket client = new Socket(address, port);
+            Socket client = new Socket();
+            client.connect(new InetSocketAddress(address, port),  RaftServer.SEND_TIMEOUT);
             OutputStream outToServer = client.getOutputStream();
             DataOutputStream out = new DataOutputStream(outToServer);
             out.writeUTF(msg.toString());
             InputStream inFromServer = client.getInputStream();
             DataInputStream in = new DataInputStream(inFromServer);
+            JsonObject r=com.eclipsesource.json.JsonObject.readFrom(in.readUTF());
             client.close();
-            com.eclipsesource.json.JsonObject recuperat = com.eclipsesource.json.JsonObject.readFrom(in.readUTF());
-            return recuperat;
+            return r;
         } catch (IOException e) {
             return new JsonObject()
                     .add("error", e.toString());

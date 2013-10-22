@@ -45,17 +45,13 @@ public class CServer extends Thread
                 // passa-ho a processar
                 this.process();
                 this.t_server.close();
-            }catch(SocketTimeoutException s)
-            {
-                logger.error("Socket timed out!");
-                break;
             }catch(IOException e)
             {
                 logger.error("IOException"+e.toString());
                 break;
             }
-            logger.warning("Server down");
         }
+        logger.warning("Server down");
     }
 
     // read form client
