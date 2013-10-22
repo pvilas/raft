@@ -32,7 +32,7 @@ public class RaftServer extends CServer {
     private RaftServerPool pool; // pool that this server belongs
     public int serverId; // id of this server
 
-    private Timer timer=new Timer(); // used to election timeout
+    private Timer timer = new Timer(); // used to election timeout
 
     // helper class to make json responses
     public static JSonHelper response = new JSonHelper();
@@ -48,35 +48,29 @@ public class RaftServer extends CServer {
     private Log log;
 
     // scheduled task to trigger elections
-    private TimerTask electionTimeoutTask = new TimerTask()
-    {
-        public void run()
-        {
+    private TimerTask electionTimeoutTask = new TimerTask() {
+        public void run() {
             runElections();
         }
     };
 
     // scheduled task to send heartbeats to followers
-    private TimerTask hbTimeoutTask = new TimerTask()
-    {
-        public void run()
-        {
+    private TimerTask hbTimeoutTask = new TimerTask() {
+        public void run() {
             sendHeartBeat();
         }
     };
 
 
-
-
-    public RaftServer( int number,   // server id
-                       int port,     // server port
-                       RaftServerPool pool   // pointer to pool
-                       ) throws IOException {
+    public RaftServer(int number,   // server id
+                      int port,     // server port
+                      RaftServerPool pool   // pointer to pool
+    ) throws IOException {
         super(number, port); // low-level comm machinery
         this.state = STATE_FOLLOWER; // server starts as a follower
-        this.serverId=number;
+        this.serverId = number;
         this.log = new Log(number);
-        this.pool=pool;
+        this.pool = pool;
         // schedule election timeout
         this.timer.schedule(electionTimeoutTask, this.electionTimeout, this.electionTimeout);
         this.timer.schedule(hbTimeoutTask, this.heartBeatPeriod, this.heartBeatPeriod);
@@ -121,14 +115,15 @@ public class RaftServer extends CServer {
     protected void process() {
 
         // read message from stream and parse as json object
-        JsonObject message = JsonObject.readFrom( this.read() );
+        JsonObject message = JsonObject.readFrom(this.read());
 
         // extract rpc command
         String rpcCommand = message.get("rpc-command").toString();
 
-        // I'm a follower, I accept a log replication op
-        if ( state==STATE_FOLLOWER && rpcCommand.equals(RPC_APPEND)) {
+        // I'm a follower or a candidate, I accept a log replication op
+        if ((state == STATE_FOLLOWER || state == STATE_CANDIDATE) && rpcCommand.equals(RPC_APPEND)) {
 
+            int sTerm= message.get("term").asInt();
             //determine if it is a heartbeat from leader (void payload)
             if ("".equals(message.get("payload").asString())) {
                 this.write(
@@ -145,15 +140,18 @@ public class RaftServer extends CServer {
                                         message.get("prevLogTerm").asInt(),
                                         message.get("payload").asObject(),
                                         message.get("leaderCommit").asInt()
-                                        )? 1 : 0
-                        ).toString() );
+                                ) ? 1 : 0
+                        ).toString());
             }
+
+            // perform an step down if necessary based on the sTerm
+            stepDown(sTerm);
 
         }
 
 
         // I'm a follower or a candidate and I receive request for vote
-        if ( (state ==STATE_FOLLOWER || state==STATE_CANDIDATE) && rpcCommand.equals(RPC_VOTE) ) {
+        if ((state == STATE_FOLLOWER || state == STATE_CANDIDATE) && rpcCommand.equals(RPC_VOTE)) {
             this.write(
                     response.resultVote(
                             this.currentTerm,
@@ -162,18 +160,18 @@ public class RaftServer extends CServer {
                                     message.get("candidateId").asInt(),
                                     message.get("prevLogIndex").asInt(),
                                     message.get("prevLogTerm").asInt()
-                            )? 1 : 0
-                    ).toString() );
+                            ) ? 1 : 0
+                    ).toString());
         }
 
         // I'm a follower, I accept a client request and I redirect to the leader
         // TODO: redirect to leader
-        if ( state==STATE_FOLLOWER && rpcCommand.equals(CLIENT_REQUEST)) {
+        if (state == STATE_FOLLOWER && rpcCommand.equals(CLIENT_REQUEST)) {
 
         }
 
         // I'm the leader, I accept client operation
-        if ( state==STATE_LEADER && rpcCommand.equals(CLIENT_REQUEST)) {
+        if (state == STATE_LEADER && rpcCommand.equals(CLIENT_REQUEST)) {
             // append to my log
             // and I will try to replicate it
             // if I will have replicated on the majority of the servers
@@ -200,10 +198,10 @@ public class RaftServer extends CServer {
         int lTerm = message.get("term").asInt();
 
         // update server's term
-        if (currentTerm<lTerm)
-            currentTerm=lTerm;
+        if (currentTerm < lTerm)
+            currentTerm = lTerm;
 
-        return response.resultAppend( this.currentTerm, 1 );
+        return response.resultAppend(this.currentTerm, 1);
     }
 
 
@@ -231,7 +229,7 @@ public class RaftServer extends CServer {
         //    but different terms), delete the existing entry and all that
         //    follow it (§5.3)
         //    4. Append any new entries not already in the log
-        success=this.log.append(termL, entry, prevLogTerm, prevLogIndex);
+        success = this.log.append(termL, entry, prevLogTerm, prevLogIndex);
 
         //    5. If leaderCommit > commitIndex, set commitIndex =
         //    min(leaderCommit, last log index)
@@ -285,8 +283,8 @@ public class RaftServer extends CServer {
         return false;
     }
 
-    // triggered every ms
-    // if the task election timesout it triggers this method
+
+    // if the task election timeouts it triggers this method
     public void runElections() {
         logger.debug("Elections time!-----");
         try {
@@ -296,16 +294,20 @@ public class RaftServer extends CServer {
             //increment current term
             incrementCurrentTerm();
 
+            // reset election timeout
+            resetElectionTimeout();
+
             // calculate how many votes are the majority
-            // = half the servers alive or half+1 if odd
+            // = half the servers or half+1 if odd
             // we presume for the moment that all servers are alive
             int majority = pool.getMajorityNumber();
 
             // get list of servers
-            Enumeration serverList=pool.getServers();
+            // TODO: check if server is alive, new ones, etc.
+            Enumeration serverList = pool.getServers();
 
             // vote for myself
-            int votes=1;
+            int votes = 1;
 
             // make request vote message
             JsonObject msg = response.makeRequestVote(
@@ -316,16 +318,45 @@ public class RaftServer extends CServer {
             );
 
             // request votes
-            // TODO: what to do this "in parallel"?
+            // TODO: what about to do this "in parallel"?
+            // -> could be done by starting a thread with multiple non bloking threads to collect the votes
+            // the we join the main thread until termination, timeout, majority, ...
+            // by entering in a loop checking conditions b and c or until win the election or timeout
 
-            while(serverList.hasMoreElements()) {
-                RaftServer rs=(RaftServer)serverList.nextElement();
-                if (rs.serverId != this.serverId){
-                    JsonObject rp= response.sendClient(
+            // for the moment, we collect votes secuentaly
+            // NOTE THAT the state can be changed in any moment if we received an
+            // hb from a one that claims to be leader because his term is almost equal to our
+
+            while (serverList.hasMoreElements() && state == STATE_CANDIDATE) {
+                RaftServer rs = (RaftServer) serverList.nextElement();
+                if (rs.serverId != this.serverId) {
+                    JsonObject rp = response.sendClient(
                             "localhost", // TODO: fix this
                             rs.port,
-                            entry
+                            msg
                     );
+
+                    // count votes
+                    if (!rp.get("error").isNull()) {
+                        logger.warning("RequestVote to server " + rs.serverId + " terminated with the error: " + rp.get("error"));
+                    } else {
+                        int rTerm = rp.get("term").asInt();
+                        int voted = rp.get("voteGranted").asInt();
+
+                        // we have a vote!
+                        if (voted == 1) votes++;
+
+                        // if we reached majority
+                        if (votes == majority) {
+                            logger.debug("Win!! I'm the new leader!!");
+                            setState(STATE_LEADER);
+                            // send hb,s immediately to claim to be the new leader
+                            sendHeartBeat();
+                            return; // we don't need more votes
+                        }
+
+                    }
+
                 }
             }
 
@@ -348,21 +379,21 @@ public class RaftServer extends CServer {
     // send heartbeats to every server if I'm the leader
     public void sendHeartBeat() {
 
-        if (state==STATE_LEADER) {
+        if (state == STATE_LEADER) {
             // make an hb message (and entry with null payload)
-            JsonObject entry=
+            JsonObject entry =
                     response.makeHB(
                             this.currentTerm,
                             this.serverId);
-            Enumeration serverList=pool.getServers();
+            Enumeration serverList = pool.getServers();
             // for each server on the list that is not myself
 
             // TODO: what to do this "in parallel"?
 
-            while(serverList.hasMoreElements()) {
-                RaftServer rs=(RaftServer)serverList.nextElement();
-                if (rs.serverId != this.serverId){
-                    JsonObject rp= response.sendClient(
+            while (serverList.hasMoreElements()) {
+                RaftServer rs = (RaftServer) serverList.nextElement();
+                if (rs.serverId != this.serverId) {
+                    JsonObject rp = response.sendClient(
                             "localhost", // TODO: fix this
                             rs.port,
                             entry
@@ -380,14 +411,15 @@ public class RaftServer extends CServer {
         logger.debug("Election timeout updated!");
     }
 
-    // performs an step down
+    // performs an step down if necessary
     private boolean stepDown(int newTerm) {
         if (newTerm > this.currentTerm) {
+            this.currentTerm = newTerm;
+            this.votedFor = -1;
             if (this.state == this.STATE_LEADER || this.state == this.STATE_CANDIDATE) {
                 this.setState(this.STATE_FOLLOWER);
             }
-            this.currentTerm = newTerm;
-            this.votedFor = -1;
+            return true;
         }
         return false;
     }
@@ -395,8 +427,10 @@ public class RaftServer extends CServer {
     // sets server state
     private void setState(int st) {
         // TODO: save on disk before set variable for the case of a crash
-        this.state = st;
-        this.votedFor = -1;
+        synchronized (this) {
+            this.state = st;
+            this.votedFor = -1;
+        }
     }
 
     // increments current term
@@ -404,7 +438,6 @@ public class RaftServer extends CServer {
         // TODO: save on disk before set variable for the case of a crash
         ++this.currentTerm;
     }
-
 
 
     // return server id
@@ -454,12 +487,12 @@ class JSonHelper {
     }
 
     // returns an entry message
-    public JsonObject makeEntry( int term,
-                                 int leaderId,
-                                 int prevLogIndex,
-                                 int prevLogTerm,
-                                 JsonObject payload,
-                                 int leaderCommit) {
+    public JsonObject makeEntry(int term,
+                                int leaderId,
+                                int prevLogIndex,
+                                int prevLogTerm,
+                                JsonObject payload,
+                                int leaderCommit) {
         return new JsonObject()
                 .add("term", term)
                 .add("leaderId", leaderId)
@@ -472,10 +505,10 @@ class JSonHelper {
 
 
     // returns request vote message
-    public JsonObject makeRequestVote( int term,   // candidate's term
-                                 int candidateId, // candidate requesting vote
-                                 int lastLogIndex, // index of candidate's last log entry 5.4
-                                 int lastLogTerm   // term of candidate's last log entry 5.4
+    public JsonObject makeRequestVote(int term,   // candidate's term
+                                      int candidateId, // candidate requesting vote
+                                      int lastLogIndex, // index of candidate's last log entry 5.4
+                                      int lastLogTerm   // term of candidate's last log entry 5.4
     ) {
         return new JsonObject()
                 .add("term", term)
@@ -486,8 +519,8 @@ class JSonHelper {
 
 
     // returns an hb message
-    public JsonObject makeHB( int term,
-                              int leaderId) {
+    public JsonObject makeHB(int term,
+                             int leaderId) {
         return new JsonObject()
                 .add("term", term)
                 .add("leaderId", leaderId)
@@ -501,23 +534,20 @@ class JSonHelper {
 
     // sends a message to a client,
     public JsonObject sendClient(String address,
-                              int port,
-                              JsonObject msg
-                              )
-    {
-        try
-        {
+                                 int port,
+                                 JsonObject msg
+    ) {
+        try {
             Socket client = new Socket(address, port);
             OutputStream outToServer = client.getOutputStream();
             DataOutputStream out = new DataOutputStream(outToServer);
             out.writeUTF(msg.toString());
             InputStream inFromServer = client.getInputStream();
-            DataInputStream in =new DataInputStream(inFromServer);
+            DataInputStream in = new DataInputStream(inFromServer);
             client.close();
             com.eclipsesource.json.JsonObject recuperat = com.eclipsesource.json.JsonObject.readFrom(in.readUTF());
             return recuperat;
-        }catch(IOException e)
-        {
+        } catch (IOException e) {
             return new JsonObject()
                     .add("error", e.toString());
         }
