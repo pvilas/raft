@@ -28,7 +28,7 @@ public class RaftServerPool extends TimerTask {
         for (int a=0; a<this.numberOfServers; a++) {
             try
             {
-                Thread t = new RaftServer(a+1, firstPort++);
+                Thread t = new RaftServer(a+1, firstPort++, this);
                 this.ServerPool.add(t);
                 //t.start();
             }catch(IOException e)
@@ -37,6 +37,8 @@ public class RaftServerPool extends TimerTask {
             }
         }
         logger.debug("Servers created");
+        // print majority
+        int m = getMajorityNumber();
     }
 
     // this method is executed every  TIME_REPORT_POOL_STATUS ms
@@ -44,6 +46,16 @@ public class RaftServerPool extends TimerTask {
         this.status();
     }
 
+    // return the number of servers that should be majority
+    public int getMajorityNumber() {
+        int maj = this.numberOfServers / 2;
+
+        // if the number is odd we add up one more to get majority
+        if ( (this.numberOfServers & 1) != 0 ) maj++;
+
+        logger.debug("Majority is "+maj);
+        return maj;
+    }
 
     //start pool
     public void start() {
@@ -57,7 +69,7 @@ public class RaftServerPool extends TimerTask {
     }
 
     // prints the status of each server
-    public void status() {
+    private void status() {
         logger.debug("Reporting pool status");
         logger.debug("=============================");
         Enumeration vEnum = this.ServerPool.elements();
@@ -68,6 +80,10 @@ public class RaftServerPool extends TimerTask {
         logger.debug("=============================");
     }
 
+    // returns and enumeration of the servers
+    public Enumeration getServers() {
+        return this.ServerPool.elements();
+    }
 
 
 }

@@ -11,7 +11,7 @@ public class Main {
     // initialize the output logger to DEBUG and output by System.out
     // this is not de log of raft!!
     private static Debug logger = new com.pvilas.Debug("MAIN", Debug.DEBUG, System.out);
-    public static final int DEFAULT_NUMBER_OF_SERVERS = 5;
+    public static final int DEFAULT_NUMBER_OF_SERVERS = 4;
     public static final int FIRST_PORT = 5001;
 
     // initialize general properties manager
@@ -27,7 +27,7 @@ public class Main {
             try {
                 numberOfServers = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                quit("Wrong number of arguments!");
+                quit("Wrong arguments!");
             }
         } else {
             numberOfServers=DEFAULT_NUMBER_OF_SERVERS;
@@ -57,50 +57,6 @@ public class Main {
 
         logger.debug("Main thread waiting...");
 
-        /*
-
-        try
-        {
-            Thread t = new RaftServer(1, 5001);
-            t.start();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-         */
-
-
-        /*
-        StateMachine st=new StateMachine();
-        Recipe rt=new Recipe(
-                new JsonObject()
-                        .add( "Title", "Espárragos a la sevillana" )
-                        .add( "RecipeNum", 111 )
-                        .add( "Author", "pvilas")
-                        .add( "Timestamp", "2013-10-19 15:00:00")
-        );
-        st.add(rt);
-        rt=new Recipe(
-                new JsonObject()
-                        .add( "Title", "Espárragos a la sevillana" )
-                        .add( "RecipeNum", 112 )
-                        .add( "Author", "pvilas")
-                        .add( "Timestamp", "2013-10-19 15:00:00")
-        );
-        st.add(rt);
-        logger.debug(st.list());
-        */
-
-        /*
-        try
-        {
-            Thread t = new CServer(1, 5001);
-            t.start();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-         */
     }
 
     private static void quit(String msg) {
@@ -112,8 +68,6 @@ public class Main {
     private static void help() {
         System.err.println("Usage:");
         System.err.println("com.pvilas.Main number_of_servers");
-        System.err.println(" ");
-        System.err.println("Note that the number_of_servers must be odd");
     }
 
 

@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="120" />
-    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="281" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="129" />
+    <bookmark url="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java" line="320" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e087ac1-a574-43e6-af40-251c31380b3c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/CServer.java" afterPath="$PROJECT_DIR$/src/com/pvilas/CServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/Main.java" afterPath="$PROJECT_DIR$/src/com/pvilas/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java" afterPath="$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" afterPath="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java" afterPath="$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="raft.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382380034890" ignored="false" />
+    <file path="/Dummy.txt" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382424130294" ignored="false" />
     <file path="/Main.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382202796234" ignored="false" />
     <file path="/Debug.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382183426531" ignored="false" />
     <file path="/Client.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382184507734" ignored="false" />
     <file path="/Server.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382184993156" ignored="false" />
-    <file path="/CServer.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382198656359" ignored="false" />
+    <file path="/CServer.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382428248216" ignored="false" />
     <file path="/ProvaClient.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382194510953" ignored="false" />
     <file path="/ProvaServer.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382194877921" ignored="false" />
     <file path="/ProvesJSon.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382192293953" ignored="false" />
     <file path="/Recipe.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382194846031" ignored="false" />
     <file path="/StateMachine.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382193699328" ignored="false" />
-    <file path="/RaftServer.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382385721765" ignored="false" />
-    <file path="/RaftServerPool.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382203133265" ignored="false" />
+    <file path="/RaftServer.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382430621513" ignored="false" />
+    <file path="/RaftServerPool.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382429937810" ignored="false" />
     <file path="/Log.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382379985437" ignored="false" />
     <file path="/a.dummy" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382379935921" ignored="false" />
+    <file path="/a.java" changelist="4e087ac1-a574-43e6-af40-251c31380b3c" time="1382427651044" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +45,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
@@ -77,7 +83,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -87,29 +92,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/Main.java">
+      <file leaf-file-name="RaftServer.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="60" selection-start="1750" selection-end="1750" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RaftServerPool.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="88" selection-start="1353" selection-end="1353" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProvesJSon.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="68" selection-start="917" selection-end="939" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="508" column="12" selection-start="16781" selection-end="16781" vertical-scroll-proportion="0.45815602">
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1759#1860#0" expanded="true" />
+                <element signature="e#1853#1854#0" expanded="true" />
+                <element signature="e#1955#2057#0" expanded="true" />
+                <element signature="e#2050#2051#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -117,58 +110,7 @@
       <file leaf-file-name="Log.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/pvilas/Log.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="16" selection-start="432" selection-end="432" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CServer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/CServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="16" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProvaClient.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvaClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="95" selection-start="960" selection-end="960" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProvaServer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvaServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="68" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RaftServer.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="286" column="61" selection-start="10031" selection-end="10031" vertical-scroll-proportion="0.73719376">
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1571#1672#0" expanded="true" />
-                <element signature="e#1665#1666#0" expanded="true" />
-                <element signature="e#1767#1869#0" expanded="true" />
-                <element signature="e#1862#1863#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StateMachine.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/pvilas/StateMachine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="57" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
+            <state line="20" column="63" selection-start="414" selection-end="414" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -195,24 +137,46 @@
         <option value="$PROJECT_DIR$/src/com/pvilas/Debug.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Client.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Server.java" />
-        <option value="$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/StateMachine.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/ProvaClient.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Recipe.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/ProvaServer.java" />
-        <option value="$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java" />
-        <option value="$PROJECT_DIR$/src/com/pvilas/CServer.java" />
-        <option value="$PROJECT_DIR$/src/com/pvilas/Main.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/Log.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/CServer.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java" />
+        <option value="$PROJECT_DIR$/src/com/pvilas/Main.java" />
         <option value="$PROJECT_DIR$/src/com/pvilas/RaftServer.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="44" />
+    <option name="x" value="140" />
     <option name="y" value="4" />
-    <option name="width" value="1245" />
+    <option name="width" value="1046" />
     <option name="height" value="1124" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>CSS</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Class structure</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -240,6 +204,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -261,11 +226,7 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="com">
+            <PATH_ELEMENT USER_OBJECT="src/com">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -283,11 +244,7 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="com">
+            <PATH_ELEMENT USER_OBJECT="src/com">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -332,27 +289,26 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="preferences.intentionPowerPack" />
+    <property name="options.lastSelected" value="preferences.sourceCode" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.41416568" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.41416568" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
@@ -433,31 +389,33 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="44" y="4" width="1245" height="1124" extended-state="0" />
+    <frame x="140" y="4" width="1046" height="1124" extended-state="0" />
     <editor active="true" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32440782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299075" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24876441" sideWeight="0.7662204" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2541872" sideWeight="0.7662204" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39973614" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23377961" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39973614" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299075" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3254377" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44459102" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21326616" sideWeight="0.5108136" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4891864" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44459102" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -531,9 +489,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Client.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/StateMachine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="54" selection-start="1346" selection-end="1346" vertical-scroll-proportion="0.0">
+        <state line="21" column="57" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -554,97 +512,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/Debug.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="64" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="36" column="64" selection-start="1120" selection-end="1120" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/Debug.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="273" selection-end="392" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="18" column="0" selection-start="273" selection-end="392" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/Client.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="57" selection-start="394" selection-end="442" vertical-scroll-proportion="0.0">
+        <state line="19" column="57" selection-start="394" selection-end="442" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Recipe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="69" selection-start="554" selection-end="554" vertical-scroll-proportion="0.3508246" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvaServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="68" selection-start="359" selection-end="359" vertical-scroll-proportion="0.023319615">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/StateMachine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="57" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Recipe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="69" selection-start="554" selection-end="554" vertical-scroll-proportion="0.3508246">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/CServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="16" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.0">
+        <state line="21" column="57" selection-start="427" selection-end="427" vertical-scroll-proportion="0.3410771">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvesJSon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="68" selection-start="917" selection-end="939" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="27" column="121" selection-start="804" selection-end="913" vertical-scroll-proportion="0.6392758">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Log.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="16" selection-start="432" selection-end="432" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvaServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="68" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0">
+        <state line="33" column="68" selection-start="1099" selection-end="1099" vertical-scroll-proportion="0.5821727">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/ProvaClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="95" selection-start="960" selection-end="960" vertical-scroll-proportion="0.0">
+        <state line="32" column="53" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.7339833">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="60" selection-start="1750" selection-end="1750" vertical-scroll-proportion="0.0">
+        <state line="27" column="64" selection-start="828" selection-end="828" vertical-scroll-proportion="0.33147633">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServerPool.java">
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/Log.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="88" selection-start="1353" selection-end="1353" vertical-scroll-proportion="0.0">
+        <state line="20" column="63" selection-start="414" selection-end="414" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/pvilas/CServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="89" selection-start="569" selection-end="569" vertical-scroll-proportion="0.44986072">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/pvilas/RaftServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="286" column="61" selection-start="10031" selection-end="10031" vertical-scroll-proportion="0.73719376">
+        <state line="508" column="12" selection-start="16781" selection-end="16781" vertical-scroll-proportion="0.45815602">
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1571#1672#0" expanded="true" />
-            <element signature="e#1665#1666#0" expanded="true" />
-            <element signature="e#1767#1869#0" expanded="true" />
-            <element signature="e#1862#1863#0" expanded="true" />
+            <element signature="e#1759#1860#0" expanded="true" />
+            <element signature="e#1853#1854#0" expanded="true" />
+            <element signature="e#1955#2057#0" expanded="true" />
+            <element signature="e#2050#2051#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -707,6 +659,18 @@
               <list>
                 <option value="0.2" />
                 <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
               </list>
             </option>
           </splitter-proportions>

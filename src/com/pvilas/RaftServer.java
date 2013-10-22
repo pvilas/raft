@@ -2,7 +2,9 @@ package com.pvilas;
 
 import com.eclipsesource.json.JsonObject;
 
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
+import java.util.Enumeration;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,7 +28,9 @@ public class RaftServer extends CServer {
     public static final String CLIENT_REQUEST = "ClientRequest";
     private int electionTimeout = 5000; // initialize to 5 seconds without a heartbeat => new election
     private int heartBeatPeriod = 250; // time between leader's heartbeats
-    private int state;
+    private int state; // current state of this server
+    private RaftServerPool pool; // pool that this server belongs
+    public int serverId; // id of this server
 
     private Timer timer=new Timer(); // used to election timeout
 
@@ -64,10 +68,15 @@ public class RaftServer extends CServer {
 
 
 
-    public RaftServer(int number, int port) throws IOException {
+    public RaftServer( int number,   // server id
+                       int port,     // server port
+                       RaftServerPool pool   // pointer to pool
+                       ) throws IOException {
         super(number, port); // low-level comm machinery
         this.state = STATE_FOLLOWER; // server starts as a follower
+        this.serverId=number;
         this.log = new Log(number);
+        this.pool=pool;
         // schedule election timeout
         this.timer.schedule(electionTimeoutTask, this.electionTimeout, this.electionTimeout);
         this.timer.schedule(hbTimeoutTask, this.heartBeatPeriod, this.heartBeatPeriod);
@@ -121,7 +130,7 @@ public class RaftServer extends CServer {
         if ( state==STATE_FOLLOWER && rpcCommand.equals(RPC_APPEND)) {
 
             //determine if it is a heartbeat from leader (void payload)
-            if ("".equals(message.get("payload").toString())) {
+            if ("".equals(message.get("payload").asString())) {
                 this.write(
                         handleHeartbeat(message).toString()
                 );
@@ -185,8 +194,7 @@ public class RaftServer extends CServer {
     private JsonObject handleHeartbeat(JsonObject message) {
 
         // reset election timeout
-        this.timer.schedule(electionTimeoutTask, this.electionTimeout, this.electionTimeout);
-        logger.debug("Election timeout updated!");
+        resetElectionTimeout();
 
         // check the leaders term
         int lTerm = message.get("term").asInt();
@@ -278,21 +286,98 @@ public class RaftServer extends CServer {
     }
 
     // triggered every ms
+    // if the task election timesout it triggers this method
     public void runElections() {
         logger.debug("Elections time!-----");
+        try {
+            // first of all we change the state to candidate
+            setState(STATE_CANDIDATE);
+
+            //increment current term
+            incrementCurrentTerm();
+
+            // calculate how many votes are the majority
+            // = half the servers alive or half+1 if odd
+            // we presume for the moment that all servers are alive
+            int majority = pool.getMajorityNumber();
+
+            // get list of servers
+            Enumeration serverList=pool.getServers();
+
+            // vote for myself
+            int votes=1;
+
+            // make request vote message
+            JsonObject msg = response.makeRequestVote(
+                    this.currentTerm,
+                    this.serverId,
+                    this.log.lastLogIndex(),
+                    this.log.lastLogTerm()
+            );
+
+            // request votes
+            // TODO: what to do this "in parallel"?
+
+            while(serverList.hasMoreElements()) {
+                RaftServer rs=(RaftServer)serverList.nextElement();
+                if (rs.serverId != this.serverId){
+                    JsonObject rp= response.sendClient(
+                            "localhost", // TODO: fix this
+                            rs.port,
+                            entry
+                    );
+                }
+            }
+
+
+            // be in this state until
+
+
+            // a) win the election
+            // b) another establishes itself as a leader
+            // c) period of time goes with no winner
+
+        } finally {
+            // if something goes wrong, set server as follower
+            setState(STATE_FOLLOWER);
+        }
+
     }
 
     // triggered every ms
+    // send heartbeats to every server if I'm the leader
     public void sendHeartBeat() {
-        logger.debug("Sending heart beats");
+
+        if (state==STATE_LEADER) {
+            // make an hb message (and entry with null payload)
+            JsonObject entry=
+                    response.makeHB(
+                            this.currentTerm,
+                            this.serverId);
+            Enumeration serverList=pool.getServers();
+            // for each server on the list that is not myself
+
+            // TODO: what to do this "in parallel"?
+
+            while(serverList.hasMoreElements()) {
+                RaftServer rs=(RaftServer)serverList.nextElement();
+                if (rs.serverId != this.serverId){
+                    JsonObject rp= response.sendClient(
+                            "localhost", // TODO: fix this
+                            rs.port,
+                            entry
+                    );
+                }
+            }
+
+        }
     }
-
-
 
 
     // resets the election timeout
     private void resetElectionTimeout() {
-
+        this.timer.schedule(electionTimeoutTask, this.electionTimeout, this.electionTimeout);
+        logger.debug("Election timeout updated!");
     }
 
     // performs an step down
@@ -313,6 +398,14 @@ public class RaftServer extends CServer {
         this.state = st;
         this.votedFor = -1;
     }
+
+    // increments current term
+    private void incrementCurrentTerm() {
+        // TODO: save on disk before set variable for the case of a crash
+        ++this.currentTerm;
+    }
+
+
 
     // return server id
     public int getNumber() {
@@ -346,19 +439,88 @@ class JSonHelper {
 
     }
 
-    // return a vote to a candidate
+    // returns a vote to a candidate
     public JsonObject resultVote(int term, int voteGranted) {
         return new JsonObject()
                 .add("term", term)
                 .add("voteGranted", voteGranted);
     }
 
-    // return a response to an append op
+    // returns a response to an append op
     public JsonObject resultAppend(int term, int success) {
         return new JsonObject()
                 .add("term", term)
                 .add("success", success);
     }
 
+    // returns an entry message
+    public JsonObject makeEntry( int term,
+                                 int leaderId,
+                                 int prevLogIndex,
+                                 int prevLogTerm,
+                                 JsonObject payload,
+                                 int leaderCommit) {
+        return new JsonObject()
+                .add("term", term)
+                .add("leaderId", leaderId)
+                .add("prevLogIndex", prevLogIndex)
+                .add("prevLogTerm", prevLogTerm)
+                .add("payload", payload)
+                .add("leaderCommit", leaderCommit)
+                ;
+    }
+
+
+    // returns request vote message
+    public JsonObject makeRequestVote( int term,   // candidate's term
+                                 int candidateId, // candidate requesting vote
+                                 int lastLogIndex, // index of candidate's last log entry 5.4
+                                 int lastLogTerm   // term of candidate's last log entry 5.4
+    ) {
+        return new JsonObject()
+                .add("term", term)
+                .add("candidateId", candidateId)
+                .add("lastLogIndex", lastLogIndex)
+                .add("lastLogTerm", lastLogTerm);
+    }
+
+
+    // returns an hb message
+    public JsonObject makeHB( int term,
+                              int leaderId) {
+        return new JsonObject()
+                .add("term", term)
+                .add("leaderId", leaderId)
+                .add("prevLogIndex", 0)
+                .add("prevLogTerm", 0)
+                .add("payload", "")
+                .add("leaderCommit", 0)
+                ;
+    }
+
+
+    // sends a message to a client,
+    public JsonObject sendClient(String address,
+                              int port,
+                              JsonObject msg
+                              )
+    {
+        try
+        {
+            Socket client = new Socket(address, port);
+            OutputStream outToServer = client.getOutputStream();
+            DataOutputStream out = new DataOutputStream(outToServer);
+            out.writeUTF(msg.toString());
+            InputStream inFromServer = client.getInputStream();
+            DataInputStream in =new DataInputStream(inFromServer);
+            client.close();
+            com.eclipsesource.json.JsonObject recuperat = com.eclipsesource.json.JsonObject.readFrom(in.readUTF());
+            return recuperat;
+        }catch(IOException e)
+        {
+            return new JsonObject()
+                    .add("error", e.toString());
+        }
+    }
 
 }

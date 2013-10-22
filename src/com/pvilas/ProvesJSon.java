@@ -25,9 +25,11 @@ public class ProvesJSon
             System.out.println(entry.toString());
 
             System.out.println("Llegint ------------------");
-            JsonObject recuperat = JsonObject.readFrom( payload.toString() );
+            com.eclipsesource.json.JsonObject recuperat = com.eclipsesource.json.JsonObject.readFrom(payload.toString());
 
             System.out.println("el titol es "+recuperat.get("Title"));
+            System.out.println("aquesta clau no existeix "+recuperat.get("xyz"));
+
 
         }catch(Exception e)
         {

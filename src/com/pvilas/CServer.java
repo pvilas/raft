@@ -17,11 +17,13 @@ public class CServer extends Thread
     protected DataInputStream s_in;
     protected DataOutputStream s_out;
     public static final String ERROR = "321165sfg4022";
+    protected int port;
 
     public CServer(int number, int port) throws IOException
     {
         this.serverSocket = new ServerSocket(port);
         this.number=number;
+        this.port=port;
         //this.serverSocket.setSoTimeout(10000);
 
         // append the server number to the logger indicator
